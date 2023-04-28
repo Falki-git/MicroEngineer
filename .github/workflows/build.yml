@@ -32,7 +32,7 @@ jobs:
         env: 
           KSP2_ZIP_PASSWORD: ${{ secrets.KSP2_ZIP_PASSWORD }}
         run: |
-          curl https://public.db.files.1drv.com/y4mIpd1_hF5GGgM7brbMGazM-rGYJqKEXLlocUjufRivFrBjo3ks-qCdDmFkPfg8xvCHFfOLnyBz4GXVNupinG1QnEsaZQMbtJUhGYkhJGeRfAyMsRCqEWtdNbu8v2h8dMMYcYP_zAVjTlNP_N4b9S7aWjH2smjjyvzBkjJ3E-GfdpGluYWgwd3ry-wMnZdcxcVDhmhzFfELQP471M-Q29veFQuOxHLjou18Df-HGP94tA -o bins.zip
+          curl https://ksp2.s3.amazonaws.com/MicroEngineer_bin_KSP2-0.1.2.0.zip -o bins.zip
           KSP2_DLL_PATH="/opt/ksp/assembly"
           echo "::set-output name=ksp2-dll-path::${KSP2_DLL_PATH}"
           mkdir -p "${KSP2_DLL_PATH}"
