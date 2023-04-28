@@ -1,0 +1,71 @@
+name: build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
+          
+      - name: Download required assemblies
+        id: download-assemblies
+        shell: bash
+        env: 
+          KSP2_ZIP_PASSWORD: ${{ secrets.KSP2_ZIP_PASSWORD }}
+        run: |
+          curl https://public.db.files.1drv.com/y4mIpd1_hF5GGgM7brbMGazM-rGYJqKEXLlocUjufRivFrBjo3ks-qCdDmFkPfg8xvCHFfOLnyBz4GXVNupinG1QnEsaZQMbtJUhGYkhJGeRfAyMsRCqEWtdNbu8v2h8dMMYcYP_zAVjTlNP_N4b9S7aWjH2smjjyvzBkjJ3E-GfdpGluYWgwd3ry-wMnZdcxcVDhmhzFfELQP471M-Q29veFQuOxHLjou18Df-HGP94tA -o bins.zip
+          KSP2_DLL_PATH="/opt/ksp/assembly"
+          echo "::set-output name=ksp2-dll-path::${KSP2_DLL_PATH}"
+          mkdir -p "${KSP2_DLL_PATH}"
+          unzip -P "${KSP2_ZIP_PASSWORD}" 'bins.zip' -d "${KSP2_DLL_PATH}"
+          rm 'bins.zip'
+                    
+      - name: Build mod solution
+        run: |
+          rm -f ${GITHUB_WORKSPACE}/Staging/BepInEx/plugins/micro_engineer/*.dll
+          mkdir -p "${GITHUB_WORKSPACE}/Staging/BepInEx/plugins/"
+          msbuild /p:Configuration=Release /p:ReferencePath="${{ steps.download-assemblies.outputs.ksp2-dll-path }}" MicroEngineer.sln
+          cp -v ${GITHUB_WORKSPACE}/bin/Release/MicroEngineer.dll ${GITHUB_WORKSPACE}/Staging/BepInEx/plugins/MicroEngineer.dll          
+        
+      #- name: Setup python
+      #  uses: actions/setup-python@v2
+        #with:
+          #python-version: 2.7
+        
+      #- name: Build metadata
+        #shell: bash
+        #run: |
+          #python ${GITHUB_WORKSPACE}/makeMeta.py 2.0.0.0
+          
+      - name: Assemble release
+        id: assemble-release
+        run: |
+          RELEASE_DIR="${RUNNER_TEMP}/release"
+          echo "Release dir: ${RELEASE_DIR}"
+          mkdir -v "${RELEASE_DIR}"
+          echo "::set-output name=release-dir::${RELEASE_DIR}"
+          cp -v -R "${GITHUB_WORKSPACE}/Staging" "${RELEASE_DIR}"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: MicroEngineer
+          path: ${{ steps.assemble-release.outputs.release-dir }}
