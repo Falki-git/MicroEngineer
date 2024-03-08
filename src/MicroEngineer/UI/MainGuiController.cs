@@ -78,7 +78,7 @@ namespace MicroEngineer.UI
 
             Utility.SaveLayout();
             FlightSceneController.Instance.ShowGui = false;
-            GameObject.Find("BTN-MicroEngineerBtn")?.GetComponent<UIValue_WriteBool_Toggle>()?.SetValue(false);
+            GameObject.Find(MicroEngineerPlugin.ToolbarFlightButtonID)!.GetComponent<UIValue_WriteBool_Toggle>()!.SetValue(false);
         }
 
         private void OnMinimizeButton(ClickEvent evt)
