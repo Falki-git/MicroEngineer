@@ -1,4 +1,5 @@
 ﻿using BepInEx.Logging;
+using KSP.UI.Binding;
 using MicroEngineer.Entries;
 using MicroEngineer.Managers;
 using MicroEngineer.Utilities;
@@ -207,6 +208,7 @@ namespace MicroEngineer.UI
             StageInfoOABWindow.IsEditorActive = false;
             Utility.SaveLayout();
             OABSceneController.Instance.ShowGui = false;
+            GameObject.Find(MicroEngineerPlugin.ToolbarOabButtonID)!.GetComponent<UIValue_WriteBool_Toggle>()!.SetValue(false);
         }
         
         public void InitializeControl(BaseEntryControl control, BaseEntry entry, bool subscribeToValueChanges = true)

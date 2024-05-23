@@ -31,7 +31,6 @@ public class MicroEngineerPlugin : BaseSpaceWarpPlugin
     // AppBar button IDs
     internal const string ToolbarFlightButtonID = "BTN-MicroEngineerFlight";
     internal const string ToolbarOabButtonID = "BTN-MicroEngineerOAB";
-    internal const string ToolbarKscButtonID = "BTN-MicroEngineerKSC";
     
     public Coroutine MainUpdateLoop;
 
