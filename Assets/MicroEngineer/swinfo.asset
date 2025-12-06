@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9065a46703c44e8fabd263388eaeb6e7, type: 3}
+  m_Name: swinfo
+  m_EditorClassIdentifier: 
+  id: MicroEngineer
+  name: Sample Mod
+  author: nobody
+  description: A sample mod for KSP2
+  version: 0.1.0
+  versionCheck: 
+  minKsp2Version: '*'
+  maxKsp2Version: '*'
+  source: 
+  allGroup: {fileID: 11400000, guid: c99e94e053d777f47a93b75166254340, type: 2}
+  partsGroup: {fileID: 11400000, guid: 655e7fe65905c614abe8b7731d4465d0, type: 2}
+  missionsGroup: {fileID: 11400000, guid: bb0295ab9abc33e46ac85f518ea667b7, type: 2}
+  celestialBodiesGroup: {fileID: 11400000, guid: 9639867d2f8193d42b6a8c061b8fc6d6, type: 2}
+  scienceExperimentGroup: {fileID: 11400000, guid: 6fedfdd60a11ce2408061898237d98cd, type: 2}
+  techNodeDataGroup: {fileID: 11400000, guid: 9e2ec5831a77212449af64d993b643d6, type: 2}
+  addressablesProfileId: 8903b2d1064d9cb4d8489fc75550f18c
+  dependencies:
+  - id: SpaceWarp2
+    min: 2.0.0
+    max: '*'
+  incompatibilities: []
