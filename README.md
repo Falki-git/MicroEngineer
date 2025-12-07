@@ -18,9 +18,7 @@ VAB:
 * See stage info for your vessel - TWR, deltaV, burn time
 
 # Installation
-Extract the contents of the .zip into your KSP2 installation folder.
-
-Mod folder will be placed in ..\Kerbal Space Program 2\BepInEx\plugins\
+Extract the contents of the .zip into ../Kerbal Space Program 2/mods
 
 # Usage
 * While in flight or VAB, open the mod window by clicking its entry on the APP BAR
@@ -44,8 +42,7 @@ Mod folder will be placed in ..\Kerbal Space Program 2\BepInEx\plugins\
 * Set a different celestial body for each stage to see what TWR and deltav you'll get on that body
 
 # Dependency
-* [Space Warp + BepInEx](https://spacedock.info/mod/3277/Space%20Warp%20+%20BepInEx)
-* [UITK for KSP 2](https://spacedock.info/mod/3363/UITK%20for%20KSP%202)
+* [KSP2 Redux Public Beta 2 or newer](https://github.com/KSP2Redux/Redux/releases)
 
 # Author & Licensing
 * Author: [Falki](https://github.com/Falki-git)
