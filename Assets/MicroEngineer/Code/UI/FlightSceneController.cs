@@ -43,8 +43,8 @@ namespace MicroEngineer.UI
                 RebuildUI();
                 
                 // If UI is closing, close EditWindows as well
-                if (!value && EditWindows != null)
-                    ToggleEditWindows();
+                if (!value && EditWindows != null) 
+                    EditWindows.GetComponent<EditWindowsController>().ToggleWindow(false);
             }
         }
 
@@ -162,6 +162,7 @@ namespace MicroEngineer.UI
         public void ToggleEditWindows() => ToggleEditWindows(false);
         public void ToggleEditWindows(bool needToOpenWithSpecificWindowSelected, int editableWindowId = 0)
         {
+            // first time opening the window
             if (EditWindows == null)
             {
                 EditWindows = Window.Create(Uxmls.Instance.InstantiateWindowOptions("EditWindows"), Uxmls.Instance.EditWindows);
@@ -171,16 +172,18 @@ namespace MicroEngineer.UI
                 _editWindowsController = EditWindows.gameObject.AddComponent<EditWindowsController>();
                 _editWindowsController.SelectedWindowId = editableWindowId;
             }
+            // one of the entry windows wants to open it
             else if (needToOpenWithSpecificWindowSelected)
             {
                 _editWindowsController.SelectedWindowId = editableWindowId;
                 _editWindowsController.ResetSelectedWindow();
+                
+                _editWindowsController.ToggleWindow(true);
             }
+            // main gui wants to toggle the window
             else
             {
-                var controller = EditWindows.GetComponent<EditWindowsController>();
-                controller.CloseWindow();
-                EditWindows = null;
+                EditWindows.GetComponent<EditWindowsController>().ToggleWindow();
             }
         }
 

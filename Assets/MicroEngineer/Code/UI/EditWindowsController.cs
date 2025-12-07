@@ -38,6 +38,8 @@ namespace MicroEngineer.UI
         public Button MoveUp { get; set; }
         public Button MoveDown { get; set; }
 
+        private bool _windowToggled;
+
         public EditWindowsController()
         { }
 
@@ -55,7 +57,7 @@ namespace MicroEngineer.UI
             Root = EditWindows.rootVisualElement;
 
             CloseButton = Root.Q<Button>("close-button");
-            CloseButton.RegisterCallback<PointerUpEvent>(_ => CloseWindow());
+            CloseButton.RegisterCallback<PointerUpEvent>(_ => ToggleWindow());
             AvailableScrollView = Root.Q<ScrollView>("available-scrollview");
             AvailableScrollView.StopMouseEventsToGameInputPropagation();
             InstalledScrollView = Root.Q<ScrollView>("installed-scrollview");
@@ -87,6 +89,8 @@ namespace MicroEngineer.UI
             BuildCategoryDropdown();
             _editableWindows = FlightSceneController.Instance.GetEditableWindows();
             ResetSelectedWindow();
+
+            _windowToggled = true;
         }
 
         public void Update()
@@ -383,11 +387,19 @@ namespace MicroEngineer.UI
             FlightSceneController.Instance.RebuildUI();
         }
 
-        public void CloseWindow()
+        public void ToggleWindow() => ToggleWindow(!_windowToggled);
+        public void ToggleWindow(bool state)
         {
-            if (EditWindows != null && EditWindows.gameObject != null)
-                EditWindows.gameObject.DestroyGameObject();
-            GameObject.Destroy(EditWindows);
+            if (state)
+            {
+                Root.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                Root.style.display = DisplayStyle.None;
+            }
+            
+            _windowToggled = state;
         }
     }
 }
