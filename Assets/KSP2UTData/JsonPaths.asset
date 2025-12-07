@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a7c8ca6df943af9ea67de238f088e6, type: 3}
   m_Name: JsonPaths
   m_EditorClassIdentifier: 
-  Keys: []
-  Values: []
+  Keys:
+  - Celestial.Kerbol.Scaled.prefab
+  - Celestial.Kerbin.Scaled.prefab
+  Values:
+  - '%NAME%.json'
+  - '%NAME%.json'

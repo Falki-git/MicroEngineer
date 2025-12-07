@@ -23,7 +23,6 @@ namespace MicroEngineer.Utilities
 
         private static void OnVisualElementPointerEnter(PointerEnterEvent evt)
         {
-            /* TODO
             Game.Input.Flight.CameraZoom.Disable();
             Game.Input.Flight.mouseDoubleTap.Disable();
             Game.Input.Flight.mouseSecondaryTap.Disable();
@@ -38,12 +37,10 @@ namespace MicroEngineer.Utilities
             Game.Input.VAB.cameraZoom.Disable();
             Game.Input.VAB.mousePrimary.Disable();
             Game.Input.VAB.mouseSecondary.Disable();
-            */
         }
 
         private static void OnVisualElementPointerLeave(PointerLeaveEvent evt)
         {
-            /* TODO
             Game.Input.Flight.CameraZoom.Enable();
             Game.Input.Flight.mouseDoubleTap.Enable();
             Game.Input.Flight.mouseSecondaryTap.Enable();
@@ -58,7 +55,6 @@ namespace MicroEngineer.Utilities
             Game.Input.VAB.cameraZoom.Enable();
             Game.Input.VAB.mousePrimary.Enable();
             Game.Input.VAB.mouseSecondary.Enable();
-            */
         }
 
         /// <summary>
