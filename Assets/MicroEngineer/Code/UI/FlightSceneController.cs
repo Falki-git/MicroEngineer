@@ -129,7 +129,6 @@ namespace MicroEngineer.UI
 
                 window.rootVisualElement[0].RegisterCallback<MouseDownEvent>(_ => _isDragging = true);
                 window.rootVisualElement[0].RegisterCallback<MouseUpEvent>(_ => _isDragging = false);
-                
 
                 Windows.Add(window);
             }

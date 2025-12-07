@@ -56,7 +56,7 @@ namespace MicroEngineer.UI
             if (StageInfoOABWindow == null)
                 return;
 
-            StageInfoOABWindow.EditorRect.position = Root[0].transform.position;
+            StageInfoOABWindow.EditorRect.position = Root[0].worldBound.position;
             Utility.SaveLayout();
         }
 

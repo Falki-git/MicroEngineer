@@ -42,7 +42,7 @@ namespace MicroEngineer.UI
             if (MainGuiWindow == null)
                 return;
 
-            MainGuiWindow.FlightRect.position = Root[0].transform.position;
+            MainGuiWindow.FlightRect.position = Root[0].worldBound.position;
             Utility.SaveLayout();
         }
 

@@ -68,7 +68,7 @@ namespace MicroEngineer.UI
             if (EntryWindow == null || !EntryWindow.IsFlightPoppedOut)
                 return;
 
-            EntryWindow.FlightRect.position = WindowRoot[0].transform.position;
+            EntryWindow.FlightRect.position = WindowRoot[0].worldBound.position;
             Utility.SaveLayout();
         }
 
