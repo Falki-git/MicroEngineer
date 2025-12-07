@@ -393,6 +393,10 @@ namespace MicroEngineer.UI
             if (state)
             {
                 Root.style.display = DisplayStyle.Flex;
+                
+                _editableWindows.Clear();
+                _editableWindows = FlightSceneController.Instance.GetEditableWindows();
+                ResetSelectedWindow();
             }
             else
             {
