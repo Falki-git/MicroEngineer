@@ -58,6 +58,8 @@ namespace MicroEngineer
             {
                 SWLogger.LogInfo($"OAB UI Item: {item}");
             }
+            
+            Settings.Initialize();
         }
 
         public override void OnInitialized()
@@ -99,8 +101,6 @@ namespace MicroEngineer
                 }
             );
             
-            Settings.Initialize();
-
             MainUpdateLoop = StartCoroutine(DoFlightUpdate());
         }
         
