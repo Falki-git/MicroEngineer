@@ -207,7 +207,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance && distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(otherRect.xMin, draggedWindow.rootVisualElement[0].worldBound.y);
                             = new Vector3(otherRect.xMin - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
 
                         break;
@@ -218,7 +217,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance && distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(otherRect.xMin - draggedWindow.rootVisualElement[0].worldBound.width, draggedWindow.rootVisualElement[0].worldBound.y);
                             = new Vector3(otherRect.xMin - draggedWindow.rootVisualElement[0].worldBound.width - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
 
                         break;
@@ -229,7 +227,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance && distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(otherRect.xMax, draggedWindow.rootVisualElement[0].worldBound.y);
                             = new Vector3(otherRect.xMax - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
 
                         break;
@@ -241,7 +238,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance &&  distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(otherRect.xMax - draggedWindow.rootVisualElement[0].worldBound.width, draggedWindow.rootVisualElement[0].worldBound.y);
                             = new Vector3(otherRect.xMax - draggedWindow.rootVisualElement[0].worldBound.width - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
 
                         break;
@@ -252,7 +248,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance && distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(draggedWindow.rootVisualElement[0].worldBound.x, otherRect.yMin);
                             = new Vector3(0, otherRect.yMin - draggedWindow.rootVisualElement[0].worldBound.yMin);
 
                         break;
@@ -263,7 +258,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance &&  distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(draggedWindow.rootVisualElement[0].worldBound.x, otherRect.yMin - draggedWindow.rootVisualElement[0].worldBound.height);
                             = new Vector3(0, otherRect.yMin - draggedWindow.rootVisualElement[0].worldBound.height - draggedWindow.rootVisualElement[0].worldBound.yMin);
 
                         break;
@@ -274,7 +268,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance && distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(draggedWindow.rootVisualElement[0].worldBound.x, otherRect.yMax);
                             = new Vector3(0, otherRect.yMax - draggedWindow.rootVisualElement[0].worldBound.yMin);
 
                         break;
@@ -285,7 +278,6 @@ namespace MicroEngineer.UI
                     if (distance < _snapDistance && distance != 0)
                     {
                         draggedWindow.rootVisualElement[0].transform.position
-                            // = new Vector3(draggedWindow.rootVisualElement[0].worldBound.x, otherRect.yMax - draggedWindow.rootVisualElement[0].worldBound.height);
                             = new Vector3(0, otherRect.yMax - draggedWindow.rootVisualElement[0].worldBound.height - draggedWindow.rootVisualElement[0].worldBound.yMin);
                     }
                 }
