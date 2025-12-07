@@ -305,7 +305,7 @@ namespace MicroEngineer.Utilities
             Type providerType = scienceRegionsProvider.GetType();
 
             FieldInfo cbToScienceRegionsField =
-                providerType.GetField("_cbToScienceRegions", BindingFlags.NonPublic | BindingFlags.Instance);
+                providerType.GetField("_cbToScienceRegions");
 
             if (cbToScienceRegionsField == null)
                 return null;
