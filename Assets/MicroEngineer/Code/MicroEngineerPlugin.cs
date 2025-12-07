@@ -104,21 +104,6 @@ namespace MicroEngineer
             MainUpdateLoop = StartCoroutine(DoFlightUpdate());
         }
         
-        /// <summary>
-        /// Loads all the assemblies for the mod.
-        /// </summary>
-        // private static void LoadAssemblies()
-        // {
-        //     // Load the Unity project assembly
-        //     var unityAssembly = Assembly.LoadFrom(Path.Combine(Instance.SWMetadata.Folder.FullName, "MicroEngineer.Unity.dll"));
-        //
-        //     // Register any custom UI controls from the loaded assembly
-        //     if (!Application.isEditor)
-        //     {
-        //         CustomControls.RegisterFromAssembly(unityAssembly);
-        //     }
-        // }
-        
         private System.Collections.IEnumerator DoFlightUpdate()
         {
             while (true)
