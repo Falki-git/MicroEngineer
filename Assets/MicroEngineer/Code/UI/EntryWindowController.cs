@@ -50,7 +50,20 @@ namespace MicroEngineer.UI
                 Collapse();
 
             WindowRoot[0].RegisterCallback<PointerUpEvent>(UpdateWindowPosition);
-            WindowRoot[0].transform.position = EntryWindow.FlightRect.position;
+            
+            // Handle initial window positioning. Set the position OnGeometryChangedEvent.
+            EventCallback<GeometryChangedEvent> _positionCallBack = null;
+            _positionCallBack = evt =>
+            {
+                if (evt.newRect.width == 0 || evt.newRect.height == 0)
+                    return;
+                
+                WindowRoot[0].style.left = EntryWindow.FlightRect.position.x;
+                WindowRoot[0].style.top = EntryWindow.FlightRect.position.y;
+                
+                WindowRoot[0].UnregisterCallback(_positionCallBack);
+            };
+            WindowRoot[0].RegisterCallback<GeometryChangedEvent>(_positionCallBack);
 
             // Hide the settings button if window is not editable (Stage window)
             if (!EntryWindow.IsEditable)
