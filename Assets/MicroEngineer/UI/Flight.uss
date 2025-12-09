@@ -972,7 +972,7 @@
 }
 
 .edit-windows__entry__increase-decimal-background {
-    background-image: url('Images/increase-decimal-19.png');
+    background-image: url('project://database/Assets/MicroEngineer/UI/Images/increase-decimal-19.png?fileID=21300000&guid=e8eb722b8364c604f8bb57fe1fbb2c7c&type=3#increase-decimal-19');
     width: 100%;
     height: 100%;
 }
@@ -1007,7 +1007,7 @@
 .edit-windows__entry__decrease-decimal-background {
     width: 100%;
     height: 100%;
-    background-image: url('Images/decrease-decimal-19.png');
+    background-image: url('project://database/Assets/MicroEngineer/UI/Images/decrease-decimal-19.png?fileID=21300000&guid=76b60bc40118807459036d0b8c4b9710&type=3#decrease-decimal-19');
 }
 
 .edit-windows__entry__decrease-decimal-background:disabled {
@@ -1089,4 +1089,8 @@
     border-top-color: var(--yellowish-translucent);
     border-bottom-color: var(--yellowish-translucent);
     color: var(--light-blue);
+}
+
+.unity-popup-field__input {
+    height: 20px;
 }

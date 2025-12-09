@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="Flight.uss" />
+    <Style src="project://database/Assets/MicroEngineer/UI/Flight.uss?fileID=7433441132597879392&amp;guid=68eb01bc1af54d0439ac0a84afc89355&amp;type=3#Flight" />
     <ui:VisualElement name="root" class="edit-window__root">
         <ui:VisualElement name="header" class="edit-window__header" style="padding-left: 25px;">
             <ui:Label text="AVAILABLE" display-tooltip-when-elided="true" style="flex-grow: 1; -unity-text-align: upper-center; color: rgb(237, 208, 147);" />
@@ -14,7 +14,8 @@
         <ui:VisualElement name="body" class="edit-window__body" style="flex-shrink: 0; flex-direction: column; padding-right: 5px; padding-left: 25px;">
             <ui:VisualElement name="body-header" style="width: 100%; flex-direction: row; justify-content: space-between; align-items: center;">
                 <ui:VisualElement name="category-container" style="flex-grow: 1; background-color: rgb(28, 34, 42); flex-shrink: 1; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px; align-items: center; height: 100%; padding-bottom: 5px;">
-                    <ui:DropdownField label="Category:" index="-1" name="category__dropdown" choices="Orbital,Misc,Body" style="display: flex; flex-direction: column; align-items: center; width: 60%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <ui:DropdownField label="Category:" name="category__dropdown" choices="Orbital,Misc,Body" index="-1" style="display: flex; flex-direction: column; align-items: center; width: 60%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 100%;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="middle-column" class="edit-window__middle-column" style="flex-shrink: 0; flex-grow: 0; width: 80px; height: 100%;" />
                 <ui:VisualElement name="window-container" style="flex-grow: 1; background-color: rgb(28, 34, 42); flex-shrink: 1; width: 100%; align-items: center; height: 100%; padding-bottom: 5px; flex-direction: column;">
