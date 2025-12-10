@@ -36,18 +36,7 @@ namespace MicroEngineer.UI
             MainGuiWindow = (MainGuiWindow)Manager.Instance.Windows.Find(w => w is MainGuiWindow);
             
             // Handle initial window positioning. Set the position OnGeometryChangedEvent.
-            EventCallback<GeometryChangedEvent> _positionCallBack = null;
-            _positionCallBack = evt =>
-            {
-                if (evt.newRect.width == 0 || evt.newRect.height == 0)
-                    return;
-                
-                Root[0].style.left = MainGuiWindow.FlightRect.position.x;
-                Root[0].style.top = MainGuiWindow.FlightRect.position.y;
-                
-                Root[0].UnregisterCallback(_positionCallBack);
-            };
-            Root[0].RegisterCallback<GeometryChangedEvent>(_positionCallBack);
+            Utility.SetDefaultWindowPosition(Root[0], MainGuiWindow.FlightRect.position.x, MainGuiWindow.FlightRect.position.y);
         }
 
         private void UpdateWindowPosition(PointerUpEvent evt)
