@@ -48,7 +48,20 @@ namespace MicroEngineer.UI
             BuildFooter();
 
             Root[0].RegisterCallback<PointerUpEvent>(UpdateWindowPosition);
-            Root[0].transform.position = StageInfoOABWindow.EditorRect.position;
+            
+            // Handle initial window positioning. Set the position OnGeometryChangedEvent.
+            EventCallback<GeometryChangedEvent> _positionCallBack = null;
+            _positionCallBack = evt =>
+            {
+                if (evt.newRect.width == 0 || evt.newRect.height == 0)
+                    return;
+                
+                Root[0].style.left = StageInfoOABWindow.EditorRect.position.x;
+                Root[0].style.top = StageInfoOABWindow.EditorRect.position.y;
+                
+                Root[0].UnregisterCallback(_positionCallBack);
+            };
+            Root[0].RegisterCallback<GeometryChangedEvent>(_positionCallBack);
         }
 
         private void UpdateWindowPosition(PointerUpEvent evt)

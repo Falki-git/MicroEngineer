@@ -269,7 +269,7 @@ namespace MicroEngineer.Managers
                     IsEditorActive = true,
                     IsFlightActive = false, // Not used
                     IsMapActive = false, // Not used
-                    EditorRect = new Rect(645, 41, 0, 0), // Top-center of the screen
+                    EditorRect = new Rect(755, 40, 0, 0), // Top-center of the screen
                     Entries = Entries.Where(entry => entry.Category == MicroEntryCategory.OAB && entry.IsDefault).ToList()
                 });
 
