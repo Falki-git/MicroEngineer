@@ -412,6 +412,7 @@
 .stage-oab__body {
     width: 115px;
     margin-left: 5px;
+    height: 15px;
 }
 
 .footer-oab {
