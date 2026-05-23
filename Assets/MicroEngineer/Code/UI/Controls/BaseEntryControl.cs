@@ -3,7 +3,8 @@ using UnityEngine.UIElements;
 
 namespace MicroEngineer.UI
 {
-    public class BaseEntryControl : VisualElement
+    [UxmlElement]
+    public partial class BaseEntryControl : VisualElement
     {
         //These are the classes that you reference on your .uss file.
         public static string UssClassName = "entry";
@@ -17,6 +18,7 @@ namespace MicroEngineer.UI
         public Label ValueLabel;
         public Label UnitLabel;
 
+        [UxmlAttribute]
         public string EntryName
         {
             get => NameLabel.text;
@@ -27,12 +29,14 @@ namespace MicroEngineer.UI
             }
         }
 
+        [UxmlAttribute]
         public string Value
         {
             get => ValueLabel.text;
             set => ValueLabel.text = value;
         }
 
+        [UxmlAttribute]
         public string Unit
         {
             get => UnitLabel.text;
@@ -98,26 +102,6 @@ namespace MicroEngineer.UI
             };
             UnitLabel.AddToClassList(UssUnitClassName);
             hierarchy.Add(UnitLabel); //Be sure to add the elements in the correct order
-        }
-
-        public new class UxmlFactory : UxmlFactory<BaseEntryControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-            UxmlStringAttributeDescription _entry = new UxmlStringAttributeDescription() { name = "entry", defaultValue = "Entry" };
-            UxmlStringAttributeDescription _value = new UxmlStringAttributeDescription() { name = "value", defaultValue = "value" };
-            UxmlStringAttributeDescription _unit = new UxmlStringAttributeDescription() { name = "unit", defaultValue = "unit" };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-
-                if (ve is BaseEntryControl entry)
-                {
-                    entry.EntryName = _entry.GetValueFromBag(bag, cc);
-                    entry.Value = _value.GetValueFromBag(bag, cc);
-                    entry.Unit = _unit.GetValueFromBag(bag, cc);
-                }
-            }
         }
 
         // public void HandleEntryValueChanged(string value, string unit, bool hideWhenNoData)

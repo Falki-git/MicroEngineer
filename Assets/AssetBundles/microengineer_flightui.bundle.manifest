@@ -1,20 +1,24 @@
 ManifestFileVersion: 0
-CRC: 1759416276
+UnityVersion: 6000.4.1f1
+CRC: 4262776035
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ca92182591fd551bd3f5f9e1c339f046
+    Hash: dea016688fc387429723d098235951d1
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3da58612f9551b4ca6692124ee68c015
+    Hash: d7580d9a15e2691f31b8db875acfe477
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: f2e27b1d2f659e3ea5ed4374a906c41e
 HashAppended: 0
 ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11995, guid: 0000000000000000e000000000000000, type: 0}
-- Class: 114
   Script: {fileID: 11998, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 114
+  Script: {fileID: 11995, guid: 0000000000000000e000000000000000, type: 0}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -23,11 +27,21 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Button/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Button/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.DropdownField/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.DropdownField/UxmlSerializedData
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Label/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Label/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.ScrollView/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.ScrollView/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Specificity
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.StyleComplexSelector
 - AssemblyName: UnityEngine.UIElementsModule
@@ -45,11 +59,17 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.TextField/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.TextField/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Toggle/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Toggle/UxmlSerializedData
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.UxmlRootElementFactory
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.VisualElement/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.VisualElement/UxmlSerializedData
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.VisualElementAsset
 Assets:

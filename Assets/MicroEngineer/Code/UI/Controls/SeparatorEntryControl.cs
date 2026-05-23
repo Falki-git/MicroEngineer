@@ -2,7 +2,8 @@
 
 namespace MicroEngineer.UI
 {
-    public class SeparatorEntryControl : VisualElement
+    [UxmlElement]
+    public partial class SeparatorEntryControl : VisualElement
     {
         public static string UssClassName = "separator";
 
@@ -10,8 +11,5 @@ namespace MicroEngineer.UI
         {
             AddToClassList(UssClassName);
         }
-
-        public new class UxmlFactory : UxmlFactory<SeparatorEntryControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits { }
     }
 }

@@ -1,27 +1,37 @@
 ManifestFileVersion: 0
-CRC: 3911601120
+UnityVersion: 6000.4.1f1
+CRC: 1975426830
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 47a5240654d97f24801a3823512ef2fb
+    Hash: c2e8ebbe8c81cedf15ee762cdf679b0c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 5d74318ba550630bb40a00091ae5993c
+    Hash: 0c470a289885d0b9041353d9810f031c
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 97560509579d14b3e8092c65471c615a
 HashAppended: 0
 ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11995, guid: 0000000000000000e000000000000000, type: 0}
-- Class: 114
   Script: {fileID: 11998, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 114
+  Script: {fileID: 11995, guid: 0000000000000000e000000000000000, type: 0}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Button/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Button/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Label/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Label/UxmlSerializedData
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Specificity
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.StyleComplexSelector
 - AssemblyName: UnityEngine.UIElementsModule
@@ -40,6 +50,8 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UIElements.UxmlRootElementFactory
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.VisualElement/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.VisualElement/UxmlSerializedData
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.VisualElementAsset
 Assets:

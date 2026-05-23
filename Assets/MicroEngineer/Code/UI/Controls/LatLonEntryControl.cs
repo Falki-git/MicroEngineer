@@ -3,7 +3,8 @@ using UnityEngine.UIElements;
 
 namespace MicroEngineer.UI
 {
-    public class LatLonEntryControl : VisualElement
+    [UxmlElement]
+    public partial class LatLonEntryControl : VisualElement
     {
         public static string UssClassName = "entry";
         public static string UssEntryClassName = UssClassName + "__name";
@@ -22,6 +23,7 @@ namespace MicroEngineer.UI
         public VisualElement ValueContainer;
 
         public Label NameLabel;
+        [UxmlAttribute]
         public string EntryName
         {
             get => NameLabel.text;
@@ -30,6 +32,7 @@ namespace MicroEngineer.UI
 
         public Label DegreesValueLabel;
         public Label DegreesUnitLabel;
+        [UxmlAttribute]
         public string Degrees
         {
             get => DegreesValueLabel.text;
@@ -38,6 +41,7 @@ namespace MicroEngineer.UI
 
         public Label MinutesValueLabel;
         public Label MinutesUnitLabel;
+        [UxmlAttribute]
         public string Minutes
         {
             get => MinutesValueLabel.text;
@@ -46,6 +50,7 @@ namespace MicroEngineer.UI
 
         public Label SecondsValueLabel;
         public Label SecondsUnitLabel;
+        [UxmlAttribute]
         public string Seconds
         {
             get => SecondsValueLabel.text;
@@ -53,6 +58,7 @@ namespace MicroEngineer.UI
         }
 
         public Label UnitLabel;
+        [UxmlAttribute]
         public string Unit
         {
             get => UnitLabel.text;
@@ -164,32 +170,6 @@ namespace MicroEngineer.UI
             };
             UnitLabel.AddToClassList(UssUnitClassName);
             hierarchy.Add(UnitLabel);
-        }
-
-        public new class UxmlFactory : UxmlFactory<LatLonEntryControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-            UxmlStringAttributeDescription _entry = new UxmlStringAttributeDescription() { name = "Entry", defaultValue = "Name" };
-            UxmlIntAttributeDescription _degrees = new UxmlIntAttributeDescription() { name = "degrees", defaultValue = 350 };
-            UxmlIntAttributeDescription _minutes = new UxmlIntAttributeDescription() { name = "minutes", defaultValue = 42 };
-            UxmlIntAttributeDescription _seconds = new UxmlIntAttributeDescription() { name = "seconds", defaultValue = 24 };
-            UxmlStringAttributeDescription _unit = new UxmlStringAttributeDescription() { name = "unit", defaultValue = "unit" };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-
-                if (ve is LatLonEntryControl entry)
-                {
-                    entry.EntryName = _entry.GetValueFromBag(bag, cc);
-                    entry.SetValue(
-                        _degrees.GetValueFromBag(bag, cc),
-                        _minutes.GetValueFromBag(bag, cc),
-                        _seconds.GetValueFromBag(bag, cc),
-                        _unit.GetValueFromBag(bag, cc)
-                        );
-                }
-            }
         }
 
         // public void HandleEntryLatLonChanged(int degrees, int minutes, int seconds, string direction) => SetValue(degrees, minutes, seconds, direction);

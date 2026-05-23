@@ -3,7 +3,8 @@ using UnityEngine.UIElements;
 
 namespace MicroEngineer.UI
 {
-    public class TimeEntryControl : VisualElement
+    [UxmlElement]
+    public partial class TimeEntryControl : VisualElement
     {
         public static string UssClassName = "entry";
         public static string UssEntryClassName = UssClassName + "__name";
@@ -25,6 +26,7 @@ namespace MicroEngineer.UI
 
         public Label NameLabel;
         public VisualElement ValueContainer;
+        [UxmlAttribute]
         public string EntryName
         {
             get => NameLabel.text;
@@ -33,6 +35,7 @@ namespace MicroEngineer.UI
 
         public Label YearsValueLabel;
         public Label YearsUnitLabel;
+        [UxmlAttribute]
         public string Years
         {
             get => YearsValueLabel.text;
@@ -41,6 +44,7 @@ namespace MicroEngineer.UI
 
         public Label DaysValueLabel;
         public Label DaysUnitLabel;
+        [UxmlAttribute]
         public string Days
         {
             get => DaysValueLabel.text;
@@ -49,6 +53,7 @@ namespace MicroEngineer.UI
 
         public Label HoursValueLabel;
         public Label HoursUnitLabel;
+        [UxmlAttribute]
         public string Hours
         {
             get => HoursValueLabel.text;
@@ -57,6 +62,7 @@ namespace MicroEngineer.UI
 
         public Label MinutesValueLabel;
         public Label MinutesUnitLabel;
+        [UxmlAttribute]
         public string Minutes
         {
             get => MinutesValueLabel.text;
@@ -65,6 +71,7 @@ namespace MicroEngineer.UI
 
         public Label SecondsValueLabel;
         public Label SecondsUnitLabel;
+        [UxmlAttribute]
         public string Seconds
         {
             get => SecondsValueLabel.text;
@@ -218,34 +225,6 @@ namespace MicroEngineer.UI
                 SecondsUnitLabel.AddToClassList(UssUnitClassName);
                 hierarchy.Add(SecondsUnitLabel);
             }//seconds
-        }
-
-        public new class UxmlFactory : UxmlFactory<TimeEntryControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-            UxmlStringAttributeDescription _entry = new UxmlStringAttributeDescription() { name = "Entry", defaultValue = "Name" };
-            UxmlIntAttributeDescription _years = new UxmlIntAttributeDescription() { name = "years", defaultValue = 1 };
-            UxmlIntAttributeDescription _days = new UxmlIntAttributeDescription() { name = "days", defaultValue = 12 };
-            UxmlIntAttributeDescription _hours = new UxmlIntAttributeDescription() { name = "hours", defaultValue = 34 };
-            UxmlIntAttributeDescription _minutes = new UxmlIntAttributeDescription() { name = "minutes", defaultValue = 56 };
-            UxmlIntAttributeDescription _seconds = new UxmlIntAttributeDescription() { name = "seconds", defaultValue = 60 };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-
-                if (ve is TimeEntryControl entry)
-                {
-                    entry.EntryName = _entry.GetValueFromBag(bag, cc);
-                    entry.SetValue(
-                        _years.GetValueFromBag(bag, cc),
-                        _days.GetValueFromBag(bag, cc),
-                        _hours.GetValueFromBag(bag, cc),
-                        _minutes.GetValueFromBag(bag, cc),
-                        _seconds.GetValueFromBag(bag, cc)
-                        );
-                }
-            }
         }
 
         // public void HandleEntryTimeValueChanged(int years, int days, int hours, int minutes, int seconds) => SetValue(years, days, hours, minutes, seconds);

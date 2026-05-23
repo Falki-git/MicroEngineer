@@ -2,7 +2,8 @@
 
 namespace MicroEngineer.UI
 {
-    public class StageInfoEntryControl : VisualElement
+    [UxmlElement]
+    public partial class StageInfoEntryControl : VisualElement
     {
         public static string UssBaseClassName = "entry";
         public static string UssClassName = "stage";
@@ -26,6 +27,7 @@ namespace MicroEngineer.UI
         public VisualElement BurnValueContainer;
 
         public Label StageNumberLabel;
+        [UxmlAttribute]
         public string StageNumber
         {
             get => StageNumberLabel.text;
@@ -34,6 +36,7 @@ namespace MicroEngineer.UI
 
         public Label DeltaVValueLabel;
         public Label DeltaVUnitLabel;
+        [UxmlAttribute]
         public string DeltaV
         {
             get => DeltaVValueLabel.text;
@@ -41,6 +44,7 @@ namespace MicroEngineer.UI
         }
 
         public Label TwrLabel;
+        [UxmlAttribute]
         public string Twr
         {
             get => TwrLabel.text;
@@ -49,6 +53,7 @@ namespace MicroEngineer.UI
 
         public Label BurnDaysValueLabel;
         public Label BurnDaysUnitLabel;
+        [UxmlAttribute]
         public string BurnDays
         {
             get => BurnDaysValueLabel.text;
@@ -57,6 +62,7 @@ namespace MicroEngineer.UI
 
         public Label BurnHoursValueLabel;
         public Label BurnHoursUnitLabel;
+        [UxmlAttribute]
         public string BurnHours
         {
             get => BurnHoursValueLabel.text;
@@ -65,6 +71,7 @@ namespace MicroEngineer.UI
 
         public Label BurnMinutesValueLabel;
         public Label BurnMinutesUnitLabel;
+        [UxmlAttribute]
         public string BurnMinutes
         {
             get => BurnMinutesValueLabel.text;
@@ -73,6 +80,7 @@ namespace MicroEngineer.UI
 
         public Label BurnSecondsValueLabel;
         public Label BurnSecondsUnitLabel;
+        [UxmlAttribute]
         public string BurnSeconds
         {
             get => BurnSecondsValueLabel.text;
@@ -215,36 +223,6 @@ namespace MicroEngineer.UI
                 };
                 BurnSecondsUnitLabel.AddToClassList(UssBurnUnitClassName);
                 BurnValueContainer.Add(BurnSecondsUnitLabel);
-            }
-        }
-
-        public new class UxmlFactory : UxmlFactory<StageInfoEntryControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-            UxmlIntAttributeDescription _stageNumber = new UxmlIntAttributeDescription() { name = "stageNumber", defaultValue = 0 };
-            UxmlIntAttributeDescription _deltaV = new UxmlIntAttributeDescription() { name = "deltav", defaultValue = 99999 };
-            UxmlIntAttributeDescription _twr = new UxmlIntAttributeDescription() { name = "twr", defaultValue = 123 };
-            UxmlIntAttributeDescription _burnDays = new UxmlIntAttributeDescription() { name = "burndays", defaultValue = 123 };
-            UxmlIntAttributeDescription _burnHours = new UxmlIntAttributeDescription() { name = "burnhours", defaultValue = 23 };
-            UxmlIntAttributeDescription _burnMinutes = new UxmlIntAttributeDescription() { name = "burnminutes", defaultValue = 59 };
-            UxmlIntAttributeDescription _burnSeconds = new UxmlIntAttributeDescription() { name = "burnseconds", defaultValue = 59 };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-
-                if (ve is StageInfoEntryControl entry)
-                {
-                    entry.SetValue(
-                        _stageNumber.GetValueFromBag(bag, cc),
-                        _deltaV.GetValueFromBag(bag, cc),
-                        _twr.GetValueFromBag(bag, cc),
-                        _burnDays.GetValueFromBag(bag, cc),
-                        _burnHours.GetValueFromBag(bag, cc),
-                        _burnMinutes.GetValueFromBag(bag, cc),
-                        _burnSeconds.GetValueFromBag(bag, cc)
-                        );
-                }
             }
         }
     }

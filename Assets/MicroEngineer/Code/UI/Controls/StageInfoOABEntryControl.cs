@@ -4,7 +4,8 @@ using UnityEngine.UIElements;
 
 namespace MicroEngineer.UI
 {
-    public class StageInfoOABEntryControl : VisualElement
+    [UxmlElement]
+    public partial class StageInfoOABEntryControl : VisualElement
     {
         public static string UssBaseClassName = "stage-info-oab";
         public static string UssClassName = "stage-oab";
@@ -34,6 +35,7 @@ namespace MicroEngineer.UI
         public VisualElement BurnValueContainer;
 
         public Label StageNumberLabel;
+        [UxmlAttribute]
         public string StageNumber
         {
             get => StageNumberLabel.text;
@@ -41,6 +43,7 @@ namespace MicroEngineer.UI
         }
 
         public Label TwrLabel;
+        [UxmlAttribute]
         public string Twr
         {
             get => TwrLabel.text;
@@ -48,6 +51,7 @@ namespace MicroEngineer.UI
         }
 
         public Label SltLabel;
+        [UxmlAttribute]
         public string Slt
         {
             get => SltLabel.text;
@@ -56,6 +60,7 @@ namespace MicroEngineer.UI
 
         public Label AslDeltaVValueLabel;
         public Label AslDeltaVUnitLabel;
+        [UxmlAttribute]
         public string AslDeltaV
         {
             get => AslDeltaVValueLabel.text;
@@ -64,6 +69,7 @@ namespace MicroEngineer.UI
 
         public Label VacDeltaVValueLabel;
         public Label VacDeltaVUnitLabel;
+        [UxmlAttribute]
         public string VacDeltaV
         {
             get => VacDeltaVValueLabel.text;
@@ -72,6 +78,7 @@ namespace MicroEngineer.UI
 
         public Label BurnDaysValueLabel;
         public Label BurnDaysUnitLabel;
+        [UxmlAttribute]
         public string BurnDays
         {
             get => BurnDaysValueLabel.text;
@@ -80,6 +87,7 @@ namespace MicroEngineer.UI
 
         public Label BurnHoursValueLabel;
         public Label BurnHoursUnitLabel;
+        [UxmlAttribute]
         public string BurnHours
         {
             get => BurnHoursValueLabel.text;
@@ -88,6 +96,7 @@ namespace MicroEngineer.UI
 
         public Label BurnMinutesValueLabel;
         public Label BurnMinutesUnitLabel;
+        [UxmlAttribute]
         public string BurnMinutes
         {
             get => BurnMinutesValueLabel.text;
@@ -96,6 +105,7 @@ namespace MicroEngineer.UI
 
         public Label BurnSecondsValueLabel;
         public Label BurnSecondsUnitLabel;
+        [UxmlAttribute]
         public string BurnSeconds
         {
             get => BurnSecondsValueLabel.text;
@@ -294,43 +304,6 @@ namespace MicroEngineer.UI
             BodyDropdown.SetEnabled(false);
             BodyDropdown.AddToClassList(UssBodyClassName);
             hierarchy.Add(BodyDropdown);
-        }
-
-        public new class UxmlFactory : UxmlFactory<StageInfoOABEntryControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-            UxmlIntAttributeDescription _stageNumber = new UxmlIntAttributeDescription() { name = "stageNumber", defaultValue = 0 };
-            UxmlIntAttributeDescription _twr = new UxmlIntAttributeDescription() { name = "twr", defaultValue = 123 };
-            UxmlIntAttributeDescription _slt = new UxmlIntAttributeDescription() { name = "slt", defaultValue = 456 };
-            UxmlIntAttributeDescription _aslDeltaV = new UxmlIntAttributeDescription() { name = "asl_deltav", defaultValue = 99999 };
-            UxmlIntAttributeDescription _vacDeltaV = new UxmlIntAttributeDescription() { name = "vac_deltav", defaultValue = 99999 };
-            UxmlIntAttributeDescription _burnDays = new UxmlIntAttributeDescription() { name = "burndays", defaultValue = 123 };
-            UxmlIntAttributeDescription _burnHours = new UxmlIntAttributeDescription() { name = "burnhours", defaultValue = 23 };
-            UxmlIntAttributeDescription _burnMinutes = new UxmlIntAttributeDescription() { name = "burnminutes", defaultValue = 59 };
-            UxmlIntAttributeDescription _burnSeconds = new UxmlIntAttributeDescription() { name = "burnseconds", defaultValue = 59 };
-            UxmlStringAttributeDescription _body = new UxmlStringAttributeDescription() { name = "bodies", defaultValue = "Kerbol,Moho,Eve,Gilly,Kerbin,Mun" };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-
-                if (ve is StageInfoOABEntryControl entry)
-                {
-                    entry.SetValue(
-                        _stageNumber.GetValueFromBag(bag, cc),
-                        _twr.GetValueFromBag(bag, cc),
-                        _slt.GetValueFromBag(bag, cc),
-                        _aslDeltaV.GetValueFromBag(bag, cc),
-                        _vacDeltaV.GetValueFromBag(bag, cc),
-                        _burnDays.GetValueFromBag(bag, cc),
-                        _burnHours.GetValueFromBag(bag, cc),
-                        _burnMinutes.GetValueFromBag(bag, cc),
-                        _burnSeconds.GetValueFromBag(bag, cc),
-                        _body.GetValueFromBag(bag, cc).Split(',').ToList(),
-                        "Kerbin"
-                        );
-                }
-            }
         }
     }
 }

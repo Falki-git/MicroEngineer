@@ -2,7 +2,8 @@
 
 namespace MicroEngineer.UI
 {
-    public class EditWindowsItemControl : VisualElement
+    [UxmlElement]
+    public partial class EditWindowsItemControl : VisualElement
     {
         public static EditWindowsItemControl AvailableEntrySelected;
 
@@ -18,6 +19,7 @@ namespace MicroEngineer.UI
         public Button IncreaseDecimalDigitsButton;
         public Button DecreaseDecimalDigitsButton;
 
+        [UxmlAttribute]
         public string EntryName
         {
             get
@@ -94,20 +96,6 @@ namespace MicroEngineer.UI
         public void Select()
         {
             AddToClassList(UssSelected);
-        }
-
-        public new class UxmlFactory : UxmlFactory<EditWindowsItemControl, UxmlTraits> { }
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-            UxmlStringAttributeDescription _entryText = new UxmlStringAttributeDescription() { name = "entry_text", defaultValue = "Lorem ipsum" };
-
-            public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-            {
-                base.Init(ve, bag, cc);
-
-                if (ve is EditWindowsItemControl e)
-                    e.EntryName = _entryText.GetValueFromBag(bag, cc);
-            }
         }
     }
 }
