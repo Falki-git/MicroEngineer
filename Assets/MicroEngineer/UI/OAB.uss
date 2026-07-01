@@ -404,7 +404,7 @@
     -unity-text-align: middle-left;
     font-size: var(--font-size-small-3);
     margin-left: 1px;
-    margin-right: 6px;
+    margin-right: 8px;
     margin-top: 0;
     margin-bottom: 0;
 }
