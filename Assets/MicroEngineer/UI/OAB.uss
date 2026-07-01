@@ -76,7 +76,7 @@
 .close-button__background {
     width: 100%;
     height: 100%;
-    background-image: url('project://database/Assets/MicroEngineer/UI/Images/k2d2_cross.png?fileID=2800000&guid=db20fccdba42f464a90ffab0dc4cd628&type=3#k2d2_cross');
+    background-image: url("project://database/Assets/MicroEngineer/UI/Images/k2d2_cross.png?fileID=2800000&guid=db20fccdba42f464a90ffab0dc4cd628&type=3#k2d2_cross");
     -unity-background-image-tint-color: rgb(192, 199, 213);
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -404,7 +404,7 @@
     -unity-text-align: middle-left;
     font-size: var(--font-size-small-3);
     margin-left: 1px;
-    margin-right: 1px;
+    margin-right: 8px;
     margin-top: 0;
     margin-bottom: 0;
 }

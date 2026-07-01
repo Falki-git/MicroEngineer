@@ -4,11 +4,11 @@
   "name": "Micro Engineer",
   "author": "Falki",
   "description": "Get in-flight and VAB information about your current vessel",
-  "source": "https://github.com/Falki-git/MicroEngineer",
-  "version": "1.8.2",
-  "version_check": "https://raw.githubusercontent.com/Falki-git/MicroEngineer/refs/heads/migration/redux/Assets/MicroEngineer/swinfo.json",
+  "source": "https://github.com/Falki-git/MicroEngineer/tree/redux/master",
+  "version": "1.8.3",
+  "version_check": "https://github.com/Falki-git/MicroEngineer/blob/redux/master/Assets/MicroEngineer/swinfo.json",
   "ksp2_version": {
-    "min": "0.2.3",
+    "min": "0.2.8.3",
     "max": "*"
   },
   "dependencies": [
