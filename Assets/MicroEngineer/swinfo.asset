@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Micro Engineer
   author: Falki
   description: Get in-flight and VAB information about your current vessel
-  version: 1.8.3
+  version: 1.8.4
   versionCheck: https://github.com/Falki-git/MicroEngineer/blob/redux/master/Assets/MicroEngineer/swinfo.json
   minKsp2Version: 0.2.8.3
   maxKsp2Version: '*'

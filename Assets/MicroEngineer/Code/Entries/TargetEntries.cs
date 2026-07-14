@@ -877,7 +877,7 @@ namespace MicroEngineer.Entries
                 return;
             }
 
-            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.TargetObject.DisplayName).SituationData
+            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.TargetObject.DisplayName)?.SituationData
                 ?.AtmosphereMaxAltutude / 1000;
         }
 
@@ -910,7 +910,7 @@ namespace MicroEngineer.Entries
                 return;
             }
 
-            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.TargetObject.DisplayName).SituationData
+            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.TargetObject.DisplayName)?.SituationData
                 ?.LowOrbitMaxAltutude / 1000;
         }
 
@@ -943,7 +943,7 @@ namespace MicroEngineer.Entries
                 return;
             }
 
-            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.TargetObject.DisplayName).SituationData
+            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.TargetObject.DisplayName)?.SituationData
                 ?.HighOrbitMaxAltitude / 1000;
         }
 

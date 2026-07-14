@@ -305,7 +305,7 @@ namespace MicroEngineer.Utilities
             Type providerType = scienceRegionsProvider.GetType();
 
             FieldInfo cbToScienceRegionsField =
-                providerType.GetField("_cbToScienceRegions");
+                providerType.GetField("_cbToScienceRegions", BindingFlags.NonPublic | BindingFlags.Instance);
 
             if (cbToScienceRegionsField == null)
                 return null;
@@ -320,7 +320,8 @@ namespace MicroEngineer.Utilities
 
         public static CelestialBodyScienceRegionsData GetBodyScienceRegion(string body)
         {
-            return !ScienceRegions.ContainsKey(body) ? null : ScienceRegions[body];
+            var scienceRegions = ScienceRegions;
+            return scienceRegions == null || !scienceRegions.ContainsKey(body) ? null : scienceRegions[body];
         }
 
         /*
