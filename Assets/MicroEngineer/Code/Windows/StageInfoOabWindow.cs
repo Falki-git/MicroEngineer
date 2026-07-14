@@ -15,7 +15,7 @@ namespace MicroEngineer.Windows
                 return;
 
             foreach (BaseEntry entry in Entries)
-                entry.RefreshData();
+                entry.RefreshDataSafe();
         }
     }
 }

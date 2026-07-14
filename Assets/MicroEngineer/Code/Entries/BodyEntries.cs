@@ -92,7 +92,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.mainBody.bodyName).SituationData
+            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.mainBody.bodyName)?.SituationData
                 ?.AtmosphereMaxAltutude / 1000;
         }
 
@@ -118,7 +118,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.mainBody.bodyName).SituationData
+            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.mainBody.bodyName)?.SituationData
                 ?.LowOrbitMaxAltutude / 1000;
         }
 
@@ -144,7 +144,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.mainBody.bodyName).SituationData
+            EntryValue = Utility.GetBodyScienceRegion(Utility.ActiveVessel.mainBody.bodyName)?.SituationData
                 ?.HighOrbitMaxAltitude / 1000;
         }
 
