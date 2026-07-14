@@ -40,11 +40,22 @@ namespace MicroEngineer.Managers
             }
         }
 
+        /// <summary>
+        /// Returns the first window of type <typeparamref name="T"/>, or null if none exists or the
+        /// window list has not been initialized. Null-safe replacement for the
+        /// <c>Windows.Find(w =&gt; w is T) as T</c> pattern used throughout the mod.
+        /// </summary>
+        public T GetWindow<T>() where T : BaseWindow => Windows?.OfType<T>().FirstOrDefault();
+
         public void DoFlightUpdate()
         {
             Utility.RefreshGameManager();
 
-            bool isFlightActive = Windows.OfType<MainGuiWindow>().FirstOrDefault().IsFlightActive;
+            var mainGui = GetWindow<MainGuiWindow>();
+            if (mainGui == null)
+                return;
+
+            bool isFlightActive = mainGui.IsFlightActive;
 
             // Perform flight UI updates only if we're in Flight or Map view
             if (Utility.GameState != null &&
