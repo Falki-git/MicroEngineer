@@ -66,32 +66,28 @@ namespace MicroEngineer.Managers
 
         private void OnManeuverCreatedMessage(MessageCenterMessage message)
         {
-            var maneuverWindow =
-                Manager.Instance.Windows.Find(w => w.GetType() == typeof(ManeuverWindow)) as ManeuverWindow;
-            maneuverWindow.OnManeuverCreatedMessage(message);
+            var maneuverWindow = Manager.Instance.GetWindow<ManeuverWindow>();
+            maneuverWindow?.OnManeuverCreatedMessage(message);
         }
 
         private void OnManeuverRemovedMessage(MessageCenterMessage message)
         {
-            var maneuverWindow =
-                Manager.Instance.Windows.Find(w => w.GetType() == typeof(ManeuverWindow)) as ManeuverWindow;
-            maneuverWindow.OnManeuverRemovedMessage(message);
+            var maneuverWindow = Manager.Instance.GetWindow<ManeuverWindow>();
+            maneuverWindow?.OnManeuverRemovedMessage(message);
         }
 
         private void OnPartManipulationCompletedMessage(MessageCenterMessage obj)
         {
-            var torque =
-                ((StageInfoOabWindow)Manager.Instance.Windows.Find(w => w is StageInfoOabWindow)).Entries.Find(e =>
-                    e is Torque);
-            torque.RefreshData();
+            var torque = Manager.Instance.GetWindow<StageInfoOabWindow>()?.Entries?.Find(e => e is Torque);
+            torque?.RefreshDataSafe();
         }
 
         private void GameStateEntered(MessageCenterMessage obj)
         {
             Utility.RefreshGameManager();
             _logger.LogDebug($"Entered GameStateEntered. GameState: {Utility.GameState.GameState}." +
-                             $"MainGui.IsFlightActive: {Manager.Instance.Windows.OfType<MainGuiWindow>().FirstOrDefault().IsFlightActive}." +
-                             $"StageOab.IsEditorActive: {Manager.Instance.Windows.OfType<StageInfoOabWindow>().FirstOrDefault().IsEditorActive}.");
+                             $"MainGui.IsFlightActive: {Manager.Instance.GetWindow<MainGuiWindow>()?.IsFlightActive}." +
+                             $"StageOab.IsEditorActive: {Manager.Instance.GetWindow<StageInfoOabWindow>()?.IsEditorActive}.");
 
             if (Utility.GameState.GameState == GameState.FlightView ||
                 Utility.GameState.GameState == GameState.VehicleAssemblyBuilder ||
@@ -102,14 +98,14 @@ namespace MicroEngineer.Managers
                 if (Utility.GameState.GameState == GameState.FlightView ||
                     Utility.GameState.GameState == GameState.Map3DView)
                 {
-                    FlightSceneController.Instance.ShowGui = Manager.Instance.Windows.OfType<MainGuiWindow>()
-                        .FirstOrDefault().IsFlightActive;
+                    FlightSceneController.Instance.ShowGui =
+                        Manager.Instance.GetWindow<MainGuiWindow>()?.IsFlightActive ?? false;
                 }
 
                 if (Utility.GameState.GameState == GameState.VehicleAssemblyBuilder)
                 {
-                    OABSceneController.Instance.ShowGui = Manager.Instance.Windows.OfType<StageInfoOabWindow>()
-                        .FirstOrDefault().IsEditorActive;
+                    OABSceneController.Instance.ShowGui =
+                        Manager.Instance.GetWindow<StageInfoOabWindow>()?.IsEditorActive ?? false;
                 }
             }
         }
@@ -149,11 +145,15 @@ namespace MicroEngineer.Managers
 
             Utility.RefreshStagesOAB();
 
-            StageInfoOabWindow stageWindow = Manager.Instance.Windows.OfType<StageInfoOabWindow>().FirstOrDefault();
+            StageInfoOabWindow stageWindow = Manager.Instance.GetWindow<StageInfoOabWindow>();
+            if (stageWindow == null)
+                return;
 
             if (Utility.VesselDeltaVComponentOAB?.StageInfo == null)
             {
-                stageWindow.Entries.Find(e => e.Name == "Stage Info (OAB)").EntryValue = null;
+                var stageInfoEntry = stageWindow.Entries?.Find(e => e.Name == "Stage Info (OAB)");
+                if (stageInfoEntry != null)
+                    stageInfoEntry.EntryValue = null;
                 return;
             }
 
