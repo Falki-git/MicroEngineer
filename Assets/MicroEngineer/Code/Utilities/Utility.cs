@@ -232,14 +232,7 @@ namespace MicroEngineer.Utilities
         /// <returns></returns>
         public static bool TargetExists()
         {
-            try
-            {
-                return ActiveVessel.TargetObject != null;
-            }
-            catch
-            {
-                return false;
-            }
+            return ActiveVessel?.TargetObject != null;
         }
 
         /// <summary>
@@ -248,13 +241,19 @@ namespace MicroEngineer.Utilities
         /// <returns></returns>
         public static bool ManeuverExists()
         {
+            if (ActiveVessel == null)
+                return false;
+
             try
             {
-                return GameManager.Instance?.Game?.SpaceSimulation.Maneuvers.GetNodesForVessel(ActiveVessel.GlobalId)
-                    .FirstOrDefault() != null;
+                return GameManager.Instance?.Game?.SpaceSimulation?.Maneuvers?
+                    .GetNodesForVessel(ActiveVessel.GlobalId)?.FirstOrDefault() != null;
             }
-            catch
+            catch (Exception ex)
             {
+                // Not expected during normal operation. Log at debug rather than swallowing silently
+                // so a genuine regression stays diagnosable without spamming the log every tick.
+                Logger.LogDebug("ManeuverExists check threw an exception: " + ex);
                 return false;
             }
         }

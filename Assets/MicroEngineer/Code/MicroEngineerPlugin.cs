@@ -16,9 +16,7 @@ namespace MicroEngineer
 {
     public class MicroEngineerPlugin : KerbalMod
     {
-        [PublicAPI] public const string ModGuid = "MicroEngineer";
         [PublicAPI] public const string ModName = "Micro Engineer";
-        [PublicAPI] public const string ModVer = "1.8.2";
         
         [PublicAPI] public static MicroEngineerPlugin Instance { get; set; }
         
@@ -78,9 +76,12 @@ namespace MicroEngineer
                 {
                     if (isOpen)
                     {
-                        var mainWindow = Manager.Instance.Windows.Find(w => w is MainGuiWindow) as MainGuiWindow;
-                        mainWindow.IsFlightActive = true;
-                        mainWindow.IsFlightMinimized = false;
+                        var mainWindow = Manager.Instance.GetWindow<MainGuiWindow>();
+                        if (mainWindow != null)
+                        {
+                            mainWindow.IsFlightActive = true;
+                            mainWindow.IsFlightMinimized = false;
+                        }
                     }
                     FlightSceneController.Instance.ShowGui = isOpen;
                     Utility.SaveLayout();
@@ -95,7 +96,11 @@ namespace MicroEngineer
                 isOpen =>
                 {
                     if (isOpen)
-                        Manager.Instance.Windows.Find(w => w.GetType() == typeof(StageInfoOabWindow)).IsEditorActive = isOpen;
+                    {
+                        var stageOabWindow = Manager.Instance.GetWindow<StageInfoOabWindow>();
+                        if (stageOabWindow != null)
+                            stageOabWindow.IsEditorActive = isOpen;
+                    }
                     OABSceneController.Instance.ShowGui = isOpen;
                     Utility.SaveLayout();
                 }
@@ -132,7 +137,9 @@ namespace MicroEngineer
             {
                 if (Utility.GameState.GameState == GameState.FlightView || Utility.GameState.GameState == GameState.Map3DView)
                 {
-                    var mainWindow = Manager.Instance.Windows.Find(w => w is MainGuiWindow) as MainGuiWindow;
+                    var mainWindow = Manager.Instance.GetWindow<MainGuiWindow>();
+                    if (mainWindow == null)
+                        return;
 
                     // if MainGUI is minimized then treat it like it isn't open at all
                     if (mainWindow.IsFlightMinimized)
@@ -153,7 +160,9 @@ namespace MicroEngineer
                 {
                     bool guiState = OABSceneController.Instance.ShowGui;
                     OABSceneController.Instance.ShowGui = !guiState;
-                    Manager.Instance.Windows.Find(w => w.GetType() == typeof(StageInfoOabWindow)).IsEditorActive = !guiState;
+                    var stageOabWindow = Manager.Instance.GetWindow<StageInfoOabWindow>();
+                    if (stageOabWindow != null)
+                        stageOabWindow.IsEditorActive = !guiState;
                     Utility.SaveLayout();
                 }
             }

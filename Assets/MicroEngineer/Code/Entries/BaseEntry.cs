@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MicroEngineer.UI;
 using MicroEngineer.Utilities;
 using Newtonsoft.Json;
+using ILogger = ReduxLib.Logging.ILogger;
 
 namespace MicroEngineer.Entries
 {
@@ -191,6 +192,37 @@ namespace MicroEngineer.Entries
 
         public virtual void RefreshData()
         {
+        }
+
+        private static readonly ILogger _logger = ReduxLib.ReduxLib.GetLogger("MicroEngineer.BaseEntry");
+        private bool _refreshErrorLogged;
+
+        /// <summary>
+        /// Wraps <see cref="RefreshData"/> so that a single entry that throws (for example a
+        /// transient null somewhere in a game-state chain during a scene change) can't abort the
+        /// refresh of the other entries in the same window, and doesn't spam the log every update
+        /// tick. On failure the value is cleared (the UI shows "-") and the error is logged once,
+        /// staying silent until the entry recovers.
+        /// </summary>
+        public void RefreshDataSafe()
+        {
+            try
+            {
+                RefreshData();
+                _refreshErrorLogged = false;
+            }
+            catch (Exception ex)
+            {
+                EntryValue = null;
+
+                if (!_refreshErrorLogged)
+                {
+                    _logger.LogError(
+                        $"Error refreshing entry '{Name}' ({GetType().Name}). Further errors for this " +
+                        "entry will be suppressed until it recovers.\n" + ex);
+                    _refreshErrorLogged = true;
+                }
+            }
         }
     }
 }
