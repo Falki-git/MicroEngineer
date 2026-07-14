@@ -14,6 +14,17 @@ user-customizable window/entry system (pop-out windows, custom windows, reordera
 - Forum: https://forum.kerbalspaceprogram.com/index.php?/topic/215989-micro-engineer/
 - Original (pre-Redux) author: [Micrologist](https://github.com/Micrologist); current author/maintainer: [Falki](https://github.com/Falki-git)
 
+### Repository / source of truth
+
+- **`Falki-git/MicroEngineer` (git remote `origin`) is the true, active source for the mod.**
+  All work happens here. Push, branch, and open PRs against `origin`.
+- **`Micrologist/MicroEngineer` (git remote `upstream`) is the original repo we forked from. It is
+  ARCHIVED and read-only — the original author stopped maintaining the mod.** Do not target it:
+  reference/history only.
+- Gotcha for `gh`: with no `--repo`, `gh pr create` defaults the base to the archived upstream and
+  fails with "Repository was archived so is read-only." Always pass
+  `--repo Falki-git/MicroEngineer` (and base `redux/development`) when opening PRs.
+
 ## Location & metadata
 
 - Mod source: `Assets/MicroEngineer/`
