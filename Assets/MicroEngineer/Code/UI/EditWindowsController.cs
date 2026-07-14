@@ -118,12 +118,12 @@ namespace MicroEngineer.UI
             {
                 var control = new EditWindowsItemControl(e.Name, true);
                 var textField = control.Q<TextField>();
-                textField.RegisterCallback<MouseDownEvent>(evt => OnAvailableEntryClicked(evt, control, e));
+                textField.RegisterCallback<PointerDownEvent>(evt => OnAvailableEntryClicked(evt, control, e), TrickleDown.TrickleDown);
                 AvailableScrollView.Add(control);
             }
         }
 
-        private void OnAvailableEntryClicked(MouseDownEvent evt, EditWindowsItemControl control, BaseEntry entry)
+        private void OnAvailableEntryClicked(PointerDownEvent evt, EditWindowsItemControl control, BaseEntry entry)
         {
             if (evt.button == (int)MouseButton.LeftMouse)
             {
@@ -195,7 +195,7 @@ namespace MicroEngineer.UI
                 incDecimal.RegisterCallback<PointerUpEvent>(_ => IncreaseDecimalDigits(e, incDecimal, decDecimal));
                 decDecimal.RegisterCallback<PointerUpEvent>(_ => DecreaseDecimalDigits(e, incDecimal, decDecimal));
                 CheckIfDecimalButtonsShouldBeEnabled(e, incDecimal, decDecimal);
-                textField.RegisterCallback<MouseDownEvent>(evt => OnInstalledEntryClicked(evt, control, e));
+                textField.RegisterCallback<PointerDownEvent>(evt => OnInstalledEntryClicked(evt, control, e), TrickleDown.TrickleDown);
                 textField.RegisterValueChangedCallback(evt => RenameEntry(evt, e));
                 textField.DisableGameInputOnFocus();
                 _installedControls.Add((control, e));
@@ -203,7 +203,7 @@ namespace MicroEngineer.UI
             }
         }
 
-        private void OnInstalledEntryClicked(MouseDownEvent evt, EditWindowsItemControl control, BaseEntry entry)
+        private void OnInstalledEntryClicked(PointerDownEvent evt, EditWindowsItemControl control, BaseEntry entry)
         {
             if (evt.button == (int)MouseButton.LeftMouse)
             {

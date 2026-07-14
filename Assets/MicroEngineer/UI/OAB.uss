@@ -674,6 +674,11 @@
     width: 100%;
 }
 
+.unity-base-popup-field__arrow {
+    left: -10px;
+    background-size: 70% 70%;
+}
+
 .unity-popup-field {
     font-size: var(--font-size-small-3);
 }
