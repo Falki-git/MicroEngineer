@@ -320,7 +320,8 @@ namespace MicroEngineer.Utilities
 
         public static CelestialBodyScienceRegionsData GetBodyScienceRegion(string body)
         {
-            return !ScienceRegions.ContainsKey(body) ? null : ScienceRegions[body];
+            var scienceRegions = ScienceRegions;
+            return scienceRegions == null || !scienceRegions.ContainsKey(body) ? null : scienceRegions[body];
         }
 
         /*
