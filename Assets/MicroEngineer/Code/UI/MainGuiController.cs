@@ -3,6 +3,7 @@ using KSP.UI.Binding;
 using MicroEngineer.Managers;
 using MicroEngineer.Utilities;
 using MicroEngineer.Windows;
+using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,7 +12,7 @@ namespace MicroEngineer.UI
     public class MainGuiController : MonoBehaviour
     {
         public MainGuiWindow MainGuiWindow { get; set; }
-        public UIDocument MainGui { get; set; }
+        public PanelRenderer MainGui { get; set; }
         public VisualElement Root { get; set; }
         public VisualElement Header { get; set; }
         public Button EditWindowsButton { get; set; }
@@ -24,8 +25,8 @@ namespace MicroEngineer.UI
 
         public void OnEnable()
         {
-            MainGui = GetComponent<UIDocument>();
-            Root = MainGui.rootVisualElement;
+            MainGui = GetComponent<PanelRenderer>();
+            Root = MainGui.GetPanelRoot();
             Header = Root.Q<VisualElement>("header");
             BuildMainGuiHeader();
             Body = Root.Q<VisualElement>("body");

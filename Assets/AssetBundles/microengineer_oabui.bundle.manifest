@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
-UnityVersion: 6000.4.1f1
-CRC: 1778022188
+UnityVersion: 6000.5.0f1
+CRC: 208113676
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8ede77721c0580eb635b111a8a6e3c83
+    Hash: 9c2a0dac10ae78ad83d8d96d12fc10a3
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 0c470a289885d0b9041353d9810f031c
+    Hash: 7aa92e14ac164814fbe0ee1b6d65ffba
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: e7ad6b22dffe46972849530ae2fefaf6
+    Hash: b945c3d105a9786d193dc4c3fdf00769
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -22,12 +22,10 @@ ClassTypes:
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
-- AssemblyName: UnityEngine.UIElementsModule
-  ClassName: UnityEngine.UIElements.Button/UxmlFactory
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Color
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Button/UxmlSerializedData
-- AssemblyName: UnityEngine.UIElementsModule
-  ClassName: UnityEngine.UIElements.Label/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.Label/UxmlSerializedData
 - AssemblyName: UnityEngine.UIElementsModule
@@ -46,10 +44,6 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UIElements.StyleSheets.Dimension
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.StyleValueHandle
-- AssemblyName: UnityEngine.UIElementsModule
-  ClassName: UnityEngine.UIElements.UxmlRootElementFactory
-- AssemblyName: UnityEngine.UIElementsModule
-  ClassName: UnityEngine.UIElements.VisualElement/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.VisualElement/UxmlSerializedData
 - AssemblyName: UnityEngine.UIElementsModule

@@ -19,9 +19,9 @@ namespace MicroEngineer.UI
         private float _snapDistance = ((SettingsWindow)Manager.Instance.Windows.Find(w => w is SettingsWindow)).SnapDistance;
         private bool _isDragging = false;
 
-        public UIDocument MainGui { get; set; }
-        public List<UIDocument> Windows = new ();
-        public UIDocument EditWindows { get; set; }
+        public PanelRenderer MainGui { get; set; }
+        public List<PanelRenderer> Windows = new ();
+        public PanelRenderer EditWindows { get; set; }
         
         private readonly WindowOptions _windowOptions = new()
         {
@@ -105,10 +105,10 @@ namespace MicroEngineer.UI
                     Window.Create(
                         Uxmls.Instance.InstantiateWindowOptions(poppedOutWindow.Name, !poppedOutWindow.IsLocked),
                         Uxmls.Instance.BaseWindow);
-                var header = window.rootVisualElement.Q<VisualElement>("header");
-                var body = window.rootVisualElement.Q<VisualElement>("body");
-                var footer = window.rootVisualElement.Q<VisualElement>("footer");
-                EntryWindowController ewc = new EntryWindowController(poppedOutWindow, window.rootVisualElement);
+                var header = window.GetPanelRoot().Q<VisualElement>("header");
+                var body = window.GetPanelRoot().Q<VisualElement>("body");
+                var footer = window.GetPanelRoot().Q<VisualElement>("footer");
+                EntryWindowController ewc = new EntryWindowController(poppedOutWindow, window.GetPanelRoot());
                 body.Add(ewc.Root);
 
                 if (poppedOutWindow.IsLocked)
@@ -121,14 +121,14 @@ namespace MicroEngineer.UI
                 }
 
                 //Handle window snapping
-                window.rootVisualElement[0].RegisterCallback<MouseMoveEvent>(_ =>
+                window.GetPanelRoot()[0].RegisterCallback<MouseMoveEvent>(_ =>
                 {
                     if (_isDragging)
                         HandleSnapping(window);
                 });
 
-                window.rootVisualElement[0].RegisterCallback<MouseDownEvent>(_ => _isDragging = true);
-                window.rootVisualElement[0].RegisterCallback<MouseUpEvent>(_ => _isDragging = false);
+                window.GetPanelRoot()[0].RegisterCallback<MouseDownEvent>(_ => _isDragging = true);
+                window.GetPanelRoot()[0].RegisterCallback<MouseUpEvent>(_ => _isDragging = false);
 
                 Windows.Add(window);
             }
@@ -143,6 +143,8 @@ namespace MicroEngineer.UI
 
         public void DestroyUI()
         {
+            ClearUiSubscriptions();
+
             if (MainGui != null && MainGui.gameObject != null)
                 MainGui.gameObject.DestroyGameObject();
             GameObject.Destroy(MainGui);
@@ -159,6 +161,24 @@ namespace MicroEngineer.UI
             }
         }
 
+        /// <summary>
+        /// Drops the entry/window subscriptions held by the controls that are about to be destroyed.
+        /// The windows and entries are long-lived while their controls are not, so without this the
+        /// handlers closing over destroyed controls stay subscribed, throw on the next value change
+        /// and - being multicast delegates - stop the newly built controls from ever being updated.
+        /// </summary>
+        private void ClearUiSubscriptions()
+        {
+            foreach (EntryWindow window in Manager.Instance.Windows?.OfType<EntryWindow>() ?? Enumerable.Empty<EntryWindow>())
+            {
+                if (window is ManeuverWindow maneuverWindow)
+                    maneuverWindow.ClearUiSubscriptions();
+
+                foreach (var entry in window.Entries ?? Enumerable.Empty<Entries.BaseEntry>())
+                    entry?.ClearUiSubscriptions();
+            }
+        }
+
         public void ToggleEditWindows() => ToggleEditWindows(false);
         public void ToggleEditWindows(bool needToOpenWithSpecificWindowSelected, int editableWindowId = 0)
         {
@@ -168,8 +188,8 @@ namespace MicroEngineer.UI
                 EditWindows = Window.Create(Uxmls.Instance.InstantiateWindowOptions("EditWindows"), Uxmls.Instance.EditWindows);
 
                 EventCallback<GeometryChangedEvent> _centerCallback = null;
-                _centerCallback = evt => Utility.CenterWindow(evt, EditWindows.rootVisualElement[0], _centerCallback);
-                EditWindows.rootVisualElement[0].RegisterCallback<GeometryChangedEvent>(_centerCallback);
+                _centerCallback = evt => Utility.CenterWindow(evt, EditWindows.GetPanelRoot()[0], _centerCallback);
+                EditWindows.GetPanelRoot()[0].RegisterCallback<GeometryChangedEvent>(_centerCallback);
                 
                 _editWindowsController = EditWindows.gameObject.AddComponent<EditWindowsController>();
                 _editWindowsController.SelectedWindowId = editableWindowId;
@@ -194,13 +214,13 @@ namespace MicroEngineer.UI
             return Manager.Instance.Windows.FindAll(w => w is EntryWindow).Cast<EntryWindow>().ToList().FindAll(w => w.IsEditable);
         }
 
-        public void HandleSnapping(UIDocument draggedWindow)
+        public void HandleSnapping(PanelRenderer draggedWindow)
         {
-            var draggedRect = draggedWindow.rootVisualElement[0].worldBound;
+            var draggedRect = draggedWindow.GetPanelRoot()[0].worldBound;
 
             foreach (var otherWindow in Windows)
             {
-                var otherRect = otherWindow.rootVisualElement[0].worldBound;
+                var otherRect = otherWindow.GetPanelRoot()[0].worldBound;
 
                 // Check if the current window is close to any edge of the other window
                 if (otherWindow != draggedWindow && Utility.AreRectsNear(draggedRect, otherRect))
@@ -208,82 +228,82 @@ namespace MicroEngineer.UI
                     var distance = 0f;
 
                     // Snap to the left edge
-                    distance =  Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.xMin - otherRect.xMin); 
+                    distance =  Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.xMin - otherRect.xMin);
                     if (distance < _snapDistance && distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(otherRect.xMin - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(otherRect.xMin - draggedWindow.GetPanelRoot()[0].worldBound.xMin, 0);
 
                         break;
                     }
 
                     // Snap to the right edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.xMax - otherRect.xMin);
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.xMax - otherRect.xMin);
                     if (distance < _snapDistance && distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(otherRect.xMin - draggedWindow.rootVisualElement[0].worldBound.width - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(otherRect.xMin - draggedWindow.GetPanelRoot()[0].worldBound.width - draggedWindow.GetPanelRoot()[0].worldBound.xMin, 0);
 
                         break;
                     }
 
                     // Snap to the left edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.xMin - otherRect.xMax); 
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.xMin - otherRect.xMax);
                     if (distance < _snapDistance && distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(otherRect.xMax - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(otherRect.xMax - draggedWindow.GetPanelRoot()[0].worldBound.xMin, 0);
 
                         break;
                     }
-                        
+
 
                     // Snap to the right edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.xMax - otherRect.xMax);
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.xMax - otherRect.xMax);
                     if (distance < _snapDistance &&  distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(otherRect.xMax - draggedWindow.rootVisualElement[0].worldBound.width - draggedWindow.rootVisualElement[0].worldBound.xMin, 0);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(otherRect.xMax - draggedWindow.GetPanelRoot()[0].worldBound.width - draggedWindow.GetPanelRoot()[0].worldBound.xMin, 0);
 
                         break;
                     }
 
                     // Snap to the top edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.yMin - otherRect.yMin);
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.yMin - otherRect.yMin);
                     if (distance < _snapDistance && distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(0, otherRect.yMin - draggedWindow.rootVisualElement[0].worldBound.yMin);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(0, otherRect.yMin - draggedWindow.GetPanelRoot()[0].worldBound.yMin);
 
                         break;
                     }
 
                     // Snap to the bottom edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.yMax - otherRect.yMin); 
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.yMax - otherRect.yMin);
                     if (distance < _snapDistance &&  distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(0, otherRect.yMin - draggedWindow.rootVisualElement[0].worldBound.height - draggedWindow.rootVisualElement[0].worldBound.yMin);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(0, otherRect.yMin - draggedWindow.GetPanelRoot()[0].worldBound.height - draggedWindow.GetPanelRoot()[0].worldBound.yMin);
 
                         break;
                     }
 
                     // Snap to the top edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.yMin - otherRect.yMax);
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.yMin - otherRect.yMax);
                     if (distance < _snapDistance && distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(0, otherRect.yMax - draggedWindow.rootVisualElement[0].worldBound.yMin);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(0, otherRect.yMax - draggedWindow.GetPanelRoot()[0].worldBound.yMin);
 
                         break;
                     }
 
                     // Snap to the bottom edge
-                    distance = Mathf.Abs(draggedWindow.rootVisualElement[0].worldBound.yMax - otherRect.yMax);
+                    distance = Mathf.Abs(draggedWindow.GetPanelRoot()[0].worldBound.yMax - otherRect.yMax);
                     if (distance < _snapDistance && distance != 0)
                     {
-                        draggedWindow.rootVisualElement[0].transform.position
-                            = new Vector3(0, otherRect.yMax - draggedWindow.rootVisualElement[0].worldBound.height - draggedWindow.rootVisualElement[0].worldBound.yMin);
+                        draggedWindow.GetPanelRoot()[0].transform.position
+                            = new Vector3(0, otherRect.yMax - draggedWindow.GetPanelRoot()[0].worldBound.height - draggedWindow.GetPanelRoot()[0].worldBound.yMin);
                     }
                 }
             }

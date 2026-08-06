@@ -11,8 +11,8 @@ namespace MicroEngineer.Utilities
     public static class OrbitExtensions
     {
         public static double NextClosestApproachTime(
-            this PatchedConicsOrbit a,
-            PatchedConicsOrbit b,
+            this IKeplerOrbit a,
+            IKeplerOrbit b,
             double UT)
         {
             double num1 = UT;
@@ -43,27 +43,27 @@ namespace MicroEngineer.Utilities
             return num1;
         }
 
-        public static double MeanMotion(this PatchedConicsOrbit o)
+        public static double MeanMotion(this IKeplerOrbit o)
         {
             return o.eccentricity > 1.0
                 ? Math.Sqrt(o.referenceBody.gravParameter / Math.Abs(Math.Pow(o.semiMajorAxis, 3.0)))
                 : 2.0 * Math.PI / o.period;
         }
 
-        public static double Separation(this PatchedConicsOrbit a, PatchedConicsOrbit b, double UT)
+        public static double Separation(this IKeplerOrbit a, IKeplerOrbit b, double UT)
         {
             return (a.WorldPositionAtUT(UT) - b.WorldPositionAtUT(UT)).magnitude;
         }
 
-        public static Vector3d WorldPositionAtUT(this PatchedConicsOrbit o, double UT)
+        public static Vector3d WorldPositionAtUT(this IKeplerOrbit o, double UT)
         {
             return o.referenceBody.transform.celestialFrame.ToLocalPosition((ICoordinateSystem)o.ReferenceFrame,
                 o.referenceBody.Position.localPosition + o.GetRelativePositionAtUTZup(UT).SwapYAndZ);
         }
 
         public static double NextClosestApproachDistance(
-            this PatchedConicsOrbit a,
-            PatchedConicsOrbit b,
+            this IKeplerOrbit a,
+            IKeplerOrbit b,
             double UT)
         {
             return a.Separation(b, a.NextClosestApproachTime(b, UT));
@@ -75,13 +75,13 @@ namespace MicroEngineer.Utilities
         //     return Vector3d.Dot(a.WorldOrbitalVelocityAtUT(UT) - b.WorldOrbitalVelocityAtUT(UT), (a.WorldBCIPositionAtUT(UT) - b.WorldBCIPositionAtUT(UT)).normalized);
         // }
 
-        public static Vector3d WorldOrbitalVelocityAtUT(this PatchedConicsOrbit o, double UT)
+        public static Vector3d WorldOrbitalVelocityAtUT(this IKeplerOrbit o, double UT)
         {
             return o.referenceBody.transform.celestialFrame.ToLocalPosition((ICoordinateSystem)o.ReferenceFrame,
                 o.GetOrbitalVelocityAtUTZup(UT).SwapYAndZ);
         }
 
-        public static Vector3d WorldBCIPositionAtUT(this PatchedConicsOrbit o, double UT)
+        public static Vector3d WorldBCIPositionAtUT(this IKeplerOrbit o, double UT)
         {
             return o.referenceBody.transform.celestialFrame.ToLocalPosition((ICoordinateSystem)o.ReferenceFrame,
                 o.GetRelativePositionAtUTZup(UT).SwapYAndZ);

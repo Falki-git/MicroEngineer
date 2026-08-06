@@ -183,6 +183,12 @@ namespace MicroEngineer.Entries
 
         public event StageInfoOABChanged OnStageInfoOABChanged;
 
+        public override void ClearUiSubscriptions()
+        {
+            base.ClearUiSubscriptions();
+            OnStageInfoOABChanged = null;
+        }
+
         public StageInfo_OAB()
         {
             Name = "Stage Info (OAB)";
