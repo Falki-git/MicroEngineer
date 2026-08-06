@@ -307,7 +307,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.OrbitalElements.LongitudeOfAscendingNode;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).OrbitalElements.LongitudeOfAscendingNode;
         }
 
         public override string ValueDisplay => base.ValueDisplay;
@@ -329,7 +329,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.OrbitalElements.ArgumentOfPeriapsis;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).OrbitalElements.ArgumentOfPeriapsis;
         }
 
         public override string ValueDisplay => base.ValueDisplay;
@@ -379,7 +379,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.OrbitalElements.SemiMajorAxis;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).OrbitalElements.SemiMajorAxis;
         }
 
         public override string ValueDisplay => base.ValueDisplay;
@@ -430,7 +430,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.OrbitalEnergy / 1000.0;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).OrbitalEnergy / 1000.0;
         }
 
         public override string ValueDisplay => base.ValueDisplay;
@@ -469,7 +469,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.orbitPercent * 100;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).orbitPercent * 100;
         }
 
         public override string ValueDisplay => base.ValueDisplay;

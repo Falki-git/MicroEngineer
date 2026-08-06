@@ -1,4 +1,5 @@
-﻿using MicroEngineer.Utilities;
+﻿using KSP.Sim.impl;
+using MicroEngineer.Utilities;
 
 namespace MicroEngineer.Entries
 {
@@ -46,7 +47,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.ReferenceBodyConstants.Radius;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).ReferenceBodyConstants.Radius;
         }
 
         public override string ValueDisplay => base.ValueDisplay;
@@ -67,7 +68,7 @@ namespace MicroEngineer.Entries
 
         public override void RefreshData()
         {
-            EntryValue = Utility.ActiveVessel.Orbit.ReferenceBodyConstants.StandardGravitationParameter;
+            EntryValue = ((PatchedConicsOrbit)Utility.ActiveVessel.Orbit).ReferenceBodyConstants.StandardGravitationParameter;
         }
 
         public override string ValueDisplay => base.ValueDisplay;

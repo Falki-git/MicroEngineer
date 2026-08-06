@@ -4,6 +4,7 @@ using MicroEngineer.Entries;
 using MicroEngineer.Managers;
 using MicroEngineer.Utilities;
 using MicroEngineer.Windows;
+using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ILogger = ReduxLib.Logging.ILogger;
@@ -13,7 +14,7 @@ namespace MicroEngineer.UI
     public class StageInfoOABController : MonoBehaviour
     {
         public StageInfoOabWindow StageInfoOABWindow { get; set; }
-        public UIDocument StageInfoOAB { get; set; }
+        public PanelRenderer StageInfoOAB { get; set; }
         public VisualElement Root { get; set; }
         public VisualElement TitleBar { get; set; }
         public VisualElement TorqueContainer { get; set; }
@@ -39,8 +40,8 @@ namespace MicroEngineer.UI
         {
             StageInfoOABWindow = (StageInfoOabWindow)Manager.Instance.Windows.Find(w => w is StageInfoOabWindow);
 
-            StageInfoOAB = GetComponent<UIDocument>();
-            Root = StageInfoOAB.rootVisualElement;
+            StageInfoOAB = GetComponent<PanelRenderer>();
+            Root = StageInfoOAB.GetPanelRoot();
 
             BuildTitleBar();
             BuildHeader();

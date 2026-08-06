@@ -93,6 +93,26 @@ namespace MicroEngineer.Entries
         public event NonStageableResourcesChanged OnNonStageableResourcesChanged;
 
         /// <summary>
+        /// Drops every UI handler subscribed to this entry. Entries outlive the UI - they live in
+        /// <see cref="Managers.Manager.Entries"/> and are only built once - while the controls that
+        /// subscribe to them are destroyed and recreated on every UI rebuild (popping a window out,
+        /// toggling the GUI, a maneuver node appearing...). Handlers that closed over a destroyed
+        /// control keep this entry alive and throw a NullReferenceException when they write to the
+        /// released VisualElement. Because these are multicast delegates, that exception aborts the
+        /// whole invocation, so the freshly built control never gets its value and the window
+        /// permanently stops updating. Every teardown must therefore clear the subscriptions before
+        /// the new UI subscribes.
+        /// </summary>
+        public virtual void ClearUiSubscriptions()
+        {
+            OnEntryValueChanged = null;
+            OnEntryTimeValueChanged = null;
+            OnEntryLatLonChanged = null;
+            OnStageInfoChanged = null;
+            OnNonStageableResourcesChanged = null;
+        }
+
+        /// <summary>
         /// Controls how the value should be displayed. Can be overriden in a inherited class for a more specialized implementation.
         /// </summary>
         public virtual string ValueDisplay
@@ -213,14 +233,26 @@ namespace MicroEngineer.Entries
             }
             catch (Exception ex)
             {
-                EntryValue = null;
-
-                if (!_refreshErrorLogged)
+                bool alreadyLogged = _refreshErrorLogged;
+                if (!alreadyLogged)
                 {
                     _logger.LogError(
                         $"Error refreshing entry '{Name}' ({GetType().Name}). Further errors for this " +
                         "entry will be suppressed until it recovers.\n" + ex);
                     _refreshErrorLogged = true;
+                }
+
+                // Clearing the value pushes "-" to the UI, which can itself throw if a stale handler
+                // is still subscribed. Guard it so it can't escape and abort the caller's refresh
+                // loop over the remaining entries, and keep it under the same suppression flag.
+                try
+                {
+                    EntryValue = null;
+                }
+                catch (Exception ex2)
+                {
+                    if (!alreadyLogged)
+                        _logger.LogError($"Error clearing display value for entry '{Name}' ({GetType().Name}).\n" + ex2);
                 }
             }
         }

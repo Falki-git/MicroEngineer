@@ -21,7 +21,7 @@ namespace MicroEngineer.UI
         
         public int SelectedWindowId;
 
-        public UIDocument EditWindows { get; set; }
+        public PanelRenderer EditWindows { get; set; }
         public VisualElement Root { get; set; }
         public Button CloseButton { get; set; }
         public ScrollView AvailableScrollView { get; set; }
@@ -53,8 +53,8 @@ namespace MicroEngineer.UI
             // wait for 1 frame until SelectedWindowId is set in FlightSceneController
             yield return null;
 
-            EditWindows = GetComponent<UIDocument>();
-            Root = EditWindows.rootVisualElement;
+            EditWindows = GetComponent<PanelRenderer>();
+            Root = EditWindows.GetPanelRoot();
 
             CloseButton = Root.Q<Button>("close-button");
             CloseButton.RegisterCallback<PointerUpEvent>(_ => ToggleWindow());

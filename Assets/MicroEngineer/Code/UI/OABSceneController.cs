@@ -1,5 +1,8 @@
-﻿using KSP.UI.Binding;
+﻿using System.Linq;
+using KSP.UI.Binding;
+using MicroEngineer.Entries;
 using MicroEngineer.Managers;
+using MicroEngineer.Windows;
 using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,7 +14,7 @@ namespace MicroEngineer.UI
         private static OABSceneController _instance;
         private bool _showGui = false;
 
-        public UIDocument StageInfoWindow { get; set; }
+        public PanelRenderer StageInfoWindow { get; set; }
 
         public bool ShowGui
         {
@@ -55,6 +58,13 @@ namespace MicroEngineer.UI
 
         public void DestroyUI()
         {
+            // Drop the handlers held by the controls we're about to destroy. The entries outlive the
+            // UI, so stale handlers would keep writing to released VisualElements and - being
+            // multicast delegates - block the rebuilt controls from ever being updated.
+            var stageInfoOabWindow = Manager.Instance.Windows?.OfType<StageInfoOabWindow>().FirstOrDefault();
+            foreach (var entry in stageInfoOabWindow?.Entries ?? Enumerable.Empty<BaseEntry>())
+                entry?.ClearUiSubscriptions();
+
             if (StageInfoWindow != null && StageInfoWindow.gameObject != null)
                 StageInfoWindow.gameObject.DestroyGameObject();
             GameObject.Destroy(StageInfoWindow);

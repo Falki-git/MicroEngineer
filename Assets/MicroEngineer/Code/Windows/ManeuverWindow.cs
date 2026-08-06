@@ -53,6 +53,17 @@ namespace MicroEngineer.Windows
 
         public event SelectedNodeIndexChanged OnSelectedNodeIndexChanged;
 
+        /// <summary>
+        /// Drops the UI handlers subscribed to this window's node events. See
+        /// <see cref="Entries.BaseEntry.ClearUiSubscriptions"/> - the window outlives the controls
+        /// that subscribe to it, so they have to be dropped whenever the UI is torn down.
+        /// </summary>
+        public void ClearUiSubscriptions()
+        {
+            OnNodeCountChanged = null;
+            OnSelectedNodeIndexChanged = null;
+        }
+
         public int SelectPreviousNode()
         {
             if (SelectedNodeIndex > 0)
