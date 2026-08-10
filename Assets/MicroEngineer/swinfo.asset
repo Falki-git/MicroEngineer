@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9065a46703c44e8fabd263388eaeb6e7, type: 3}
-  m_Name: swinfo
+  m_Name: 'Micro Engineer [MicroEngineer]'
   m_EditorClassIdentifier: 
   id: MicroEngineer
   name: Micro Engineer
   author: Falki
   description: Get in-flight and VAB information about your current vessel
-  version: 1.8.4
+  version: 1.8.5
   versionCheck: https://raw.githubusercontent.com/Falki-git/MicroEngineer/refs/heads/redux/master/Assets/MicroEngineer/swinfo.json
-  minKsp2Version: 0.2.8.3
+  minKsp2Version: 0.2.9.0
   maxKsp2Version: '*'
   source: https://github.com/Falki-git/MicroEngineer/tree/redux/master
   allGroup: {fileID: 11400000, guid: c99e94e053d777f47a93b75166254340, type: 2}
@@ -27,6 +27,7 @@ MonoBehaviour:
   celestialBodiesGroup: {fileID: 11400000, guid: 9639867d2f8193d42b6a8c061b8fc6d6, type: 2}
   scienceExperimentGroup: {fileID: 11400000, guid: 6fedfdd60a11ce2408061898237d98cd, type: 2}
   techNodeDataGroup: {fileID: 11400000, guid: 9e2ec5831a77212449af64d993b643d6, type: 2}
+  resourcesGroup: {fileID: 0}
   addressablesProfileId: 8903b2d1064d9cb4d8489fc75550f18c
   dependencies:
   - id: SpaceWarp2
